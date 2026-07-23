@@ -1,0 +1,20 @@
+# OS 垃圾文件
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# 编辑器 / IDE
+*.swp
+.idea/
+.vscode/
+
+# 环境变量 / 密钥（防御性，作品集目前不含代码，仍建议保留）
+.env
+.env.*
+*.local
+
+# 日志
+*.log
+
+# Node 依赖（若后续补充代码）
+node_modules/
