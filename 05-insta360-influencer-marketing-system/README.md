@@ -9,9 +9,6 @@
 <img alt="status" src="https://img.shields.io/badge/状态-方案完整·持续迭代-E8A33D"> &nbsp;
 <img alt="domain" src="https://img.shields.io/badge/领域-AI营销决策·多模态·组合优化-8E44AD">
 </p>
-
-> 本项目为个人独立项目，从业务拆解、决策框架、产品形态到技术架构均由本人完成；完整方案以 6 册文档承载（见第五节）。
-
 ---
 
 ## 一、项目背景
