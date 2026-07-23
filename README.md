@@ -16,7 +16,7 @@
 
 完整方案以 **6 册文档**承载，已收入本仓库，可直接浏览：
 
-- **项目详情**：[05-insta360-influencer-marketing-system/README.md](./05-insta360-influencer-marketing-system/README.md)
-- **方案 6 册文档**：[05-insta360-influencer-marketing-system/docs/](./05-insta360-influencer-marketing-system/docs/)
+- **项目详情**：[insta360-influencer-marketing-system/README.md](./insta360-influencer-marketing-system/README.md)
+- **方案 6 册文档**：[insta360-influencer-marketing-system/docs/](./insta360-influencer-marketing-system/docs/)
 
 > 6 册文档包含：方案总览与业务背景、破题思路与研究竞品支撑、产品需求 PRD、详细技术方案与数据规格、评价指标与历史回放验证、端到端流程演示。

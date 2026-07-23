@@ -1,4 +1,4 @@
-# 05 · 影石 Insta360 场景化达人投放决策系统
+# 影石 Insta360 场景化达人投放决策系统
 
 > 面向 Insta360 全球运动户外达人营销的 **从 0 到 1 策略 + 产品技术方案**。
 > 一句话：把「凭经验选达人」升级为「按产品场景、带证据、可回放校准」的组合决策流程。
@@ -9,6 +9,7 @@
 <img alt="status" src="https://img.shields.io/badge/状态-方案完整·持续迭代-E8A33D"> &nbsp;
 <img alt="domain" src="https://img.shields.io/badge/领域-AI营销决策·多模态·组合优化-8E44AD">
 </p>
+
 ---
 
 ## 一、项目背景
