@@ -1,0 +1,68 @@
+# 5 分钟跑通（quickstart）
+
+本指南用仓库自带的**虚构演示数据**，带你从「候选名单」一路跑到「docx 报告 + 汇总表」，不依赖任何真实客户名单。
+
+> 前置：Python 3.8+。依赖见 `../requirements.txt`。
+
+## 0. 安装依赖
+
+```bash
+pip install -r ../requirements.txt
+```
+
+## 1. 准备候选（每行一个公司名）
+
+```bash
+cat > candidates.txt <<'EOF'
+示例智能装备集团股份有限公司
+演示科技股份有限公司
+EOF
+```
+
+## 2. 强排除校验（默认用虚构假名单）
+
+```bash
+python ../scripts/strong_exclusion.py --candidates candidates.txt
+```
+
+预期输出：
+
+```
+在库名单条数: 20 | 候选条数: 2
+[通过] 示例智能装备集团股份有限公司
+[命中] 演示科技股份有限公司
+       在库: 演示科技集团有限公司
+结果: 存在撞库，需剔除命中项
+```
+
+`演示科技股份有限公司` 会被假名单里的 `演示科技集团有限公司` 捕获——这就是强排除在起作用。把它从 `candidates.txt` 删掉，只留通过项。
+
+> 接你**真实**名单时：`python ../scripts/strong_exclusion.py --candidates candidates.txt --list /你的/本地/在库名单.json`（名单放仓库外，绝不入库）。
+
+## 3. 准备本批汇总行（CSV，10 列，无表头）
+
+字段顺序：`序号,拓客日期,公司/集团名,所处城市,具体区域,行业,细分行业,具体情况,主要优势,公司人数`
+
+```bash
+cat > rows.csv <<'EOF'
+1,2026-07-23,示例智能装备集团股份有限公司,示例市,示例区,仪器仪表制造业,高端传感器,近期完成C轮融资,国产替代,"约60-100"
+EOF
+```
+
+## 4. 生成 docx + 追加汇总表 xlsx
+
+先准备一份 markdown 报告（可参考 `调研报告示例.md` 的 7 节结构），存为 `report.md`，然后：
+
+```bash
+python ../scripts/build_report.py \
+    --md report.md \
+    --docx 公司调研报告汇总_demo.docx \
+    --xlsx 拓客汇总表_demo.xlsx \
+    --rows rows.csv
+```
+
+输出：`公司调研报告汇总_demo.docx`（完整 7 节报告）+ `拓客汇总表_demo.xlsx`（已追加本批行）。
+
+## 完成
+
+到这里你已经跑通了「候选 → 强排除 → 报告 + 汇总表」全链路。把它接到你的真实信号源（招聘/融资/IPO 抓取）与在库名单，即可日常化产出。
