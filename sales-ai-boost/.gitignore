@@ -1,0 +1,33 @@
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 本地临时
+*.tmp
+.bak
+
+# ===== 机密数据：严禁提交真实客户名单 / 在库名单 / 含客户信息的汇总表 =====
+# 真实在库/存量客户名单（含数千家公司名，商业机密）
+在库客户名单*.xlsx
+*客户名单*.json
+incumbents*.json
+# 示例假数据可提交（仅演示 JSON 结构）——gitignore 的否定规则不能带行尾注释
+!incumbents_sample.json
+
+# 真实拓客汇总表（含客户信息，不入库；示例为 .md 可提交）
+*拓客*.xlsx
+*汇总*.xlsx
+*调研报告汇总*.docx
+
+# 本地真实报告源文件（含客户名，不入库；示例 reports 为演示可提交）
+# 如需排除真实 reports_YYYY-MM-DD.md，按需取消下一行注释：
+# reports_20*.md
+
+# 个人/环境配置
+.env
+*.local
