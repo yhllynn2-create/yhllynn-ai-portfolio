@@ -69,7 +69,7 @@ def md_to_docx(md_path, docx_path):
     return sum(1 for l in lines if l.strip().startswith('### '))
 
 
-def append_xlsx(xlsx_path, rows_csv):
+def append_xlsx(xlsx_path, rows_csv, tier_map=None):
     rows = []
     with open(rows_csv, encoding='utf-8') as f:
         for r in csv.reader(f):
@@ -84,11 +84,29 @@ def append_xlsx(xlsx_path, rows_csv):
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.append(['序号', '拓客日期', '公司/集团名', '所处城市', '具体区域',
-                   '行业', '细分行业', '具体情况', '主要优势', '公司人数'])
+                   '行业', '细分行业', '具体情况', '主要优势', '公司人数',
+                   '价值层级'])
+    has_tier = ws.max_column >= 11 and ws.cell(1, 11).value == '价值层级'
+    if not has_tier:
+        # 老表无价值层级列，补一列表头
+        ws.cell(1, ws.max_column + 1, '价值层级')
     for r in rows:
+        if tier_map is not None:
+            name = r[2] if len(r) > 2 else ''
+            r = r + [tier_map.get(name, '')]
         ws.append(r)
     wb.save(xlsx_path)
     return len(rows)
+
+
+def load_tier(path):
+    """读取 tier.csv（两列 公司名,层级，无表头）→ {公司名: 层级}。"""
+    m = {}
+    with open(path, encoding='utf-8') as f:
+        for r in csv.reader(f):
+            if len(r) >= 2:
+                m[r[0].strip()] = r[1].strip()
+    return m
 
 
 def main():
@@ -97,10 +115,13 @@ def main():
     ap.add_argument('--docx', default='公司调研报告汇总.docx', help='输出 docx 路径')
     ap.add_argument('--xlsx', default='拓客汇总表.xlsx', help='汇总表 xlsx 路径')
     ap.add_argument('--rows', required=True, help='本批行 CSV（10 列，无表头）')
+    ap.add_argument('--tier', default=None,
+                    help='价值层级 CSV（两列 公司名,层级，无表头）；按公司名匹配写入末列')
     args = ap.parse_args()
 
+    tier_map = load_tier(args.tier) if args.tier else None
     n = md_to_docx(args.md, args.docx)
-    m = append_xlsx(args.xlsx, args.rows)
+    m = append_xlsx(args.xlsx, args.rows, tier_map)
     print('docx 公司数=%d, xlsx 追加行数=%d' % (n, m))
 
 
